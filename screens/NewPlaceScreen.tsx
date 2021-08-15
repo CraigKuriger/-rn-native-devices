@@ -48,8 +48,10 @@ const NewPlaceScreen = (props: Props) => {
   );
 };
 
-NewPlaceScreen.navigationOptions = {
-  headerTitle: "New Place",
+NewPlaceScreen.navigationOptions = () => {
+  return {
+    headerTitle: "New Place",
+  };
 };
 
 const styles = StyleSheet.create({
