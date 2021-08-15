@@ -1,8 +1,13 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
 
 const PlaceDetailScreen = () => {
   return <View></View>;
+};
+PlaceDetailScreen.navigationOptions = (navData) => {
+  return {
+    headerTitle: navData.navigation.getParam("placeTitle"),
+  };
 };
 
 const styles = StyleSheet.create({});

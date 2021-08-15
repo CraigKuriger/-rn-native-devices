@@ -7,6 +7,14 @@ import { createStackNavigator } from "react-navigation-stack";
 import Colors from "../constants/Colors";
 import { createAppContainer } from "react-navigation";
 
+export interface NavigationShape {
+  getParam: (param: string) => any;
+  goBack: () => void;
+  navigate: (path: string, params?: { [Key: string]: any }) => void;
+  setParams: (params: { [Key: string]: any }) => void;
+  toggleDrawer: () => void;
+}
+
 const PlacesNavigator = createStackNavigator(
   {
     Places: PlacesListScreen,

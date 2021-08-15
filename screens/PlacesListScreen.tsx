@@ -1,21 +1,45 @@
 import React from "react";
-import { View, Text, Button, StyleSheet, Platform } from "react-native";
+import { View, Text, FlatList, StyleSheet, Platform } from "react-native";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
+import { useSelector } from "react-redux";
 import CustomHeaderButton from "../components/HeaderButton";
+import PlaceItem from "../components/PlaceItems";
+import { NavigationShape } from "../navigation/PlacesNavigator";
+import { PlacesStateShape } from "../store/places-reducer";
 
-const PlacesListScreen = (props) => {
+interface Props {
+  navigation: NavigationShape;
+}
+
+const PlacesListScreen = (props: Props) => {
+  const places = useSelector(
+    (state: { places: PlacesStateShape }) => state.places.places
+  );
+
   return (
-    <View>
-      <Text>TEST</Text>
-      <Button
-        title="New"
-        onPress={() => props.navigation.navigate("NewPlace")}
-      />
-    </View>
+    <FlatList
+      data={places}
+      keyExtractor={(item) => item.id}
+      renderItem={(itemData) => (
+        <PlaceItem
+          image={null}
+          title={itemData.item.title}
+          address={null}
+          onSelect={() => {
+            props.navigation.navigate("PlaceDetail", {
+              placeTitle: itemData.item.title,
+              placeId: itemData.item.id,
+            });
+          }}
+        />
+      )}
+    />
   );
 };
 
-PlacesListScreen.navigationOptions = (navData) => {
+PlacesListScreen.navigationOptions = (navData: {
+  navigation: { navigate: (arg0: string) => any };
+}) => {
   return {
     headerTitle: "All places",
     headerRight: (
